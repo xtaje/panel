@@ -46,7 +46,8 @@ class ImageBase(DivPaneBase):
 
     @classmethod
     def _is_url(cls, obj):
-        return ((obj.startswith('http://') or obj.startswith('https://'))
+        return (isinstance(obj, string_types) and
+                (obj.startswith('http://') or obj.startswith('https://'))
                 and obj.endswith('.'+cls.imgtype))
 
     def _img(self):
@@ -82,10 +83,10 @@ class ImageBase(DivPaneBase):
             width = int((self.height/height)*width)
             height = self.height
         if self._is_url(self.object) and not self.embed:
+            src = self.object
+        else:
             b64 = base64.b64encode(data).decode("utf-8")
             src = "data:image/"+self.imgtype+";base64,{b64}".format(b64=b64)
-        else:
-            src = self.object
         html = "<img src='{src}' width='{width}px' height='{height}px'></img>".format(
             src=src, width=width, height=height)
         return dict(p, width=width, height=height, text=html)
