@@ -75,3 +75,8 @@ def test_vtk_data_array_dump():
     assert len(scDir) == 1
     assert isinstance(scDir[0][0], string_types)
     assert isinstance(scDir[0][1], bytes)
+
+
+def test_vtkjs_serializer(document, comm):
+    renWin = make_render_window()
+    model = Pane(renWin)._get_root(document, comm)
