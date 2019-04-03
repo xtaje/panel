@@ -56,6 +56,13 @@ export class AcePlotView extends HTMLBoxView {
         fontFamily: "monospace", //hack for cursor position
       });
       this._editor.on('change', () => this._update_code_from_editor())
+      this._editor.session.on('changeAnnotation', () => {
+        const session_annotations = this._editor.session.getAnnotations()
+        if(this.model.annotations != session_annotations){
+          this.model.annotations.push(...session_annotations)
+          this.model.properties.annotations.change.emit()
+        }
+      })
   }
 
   _update_code_from_model(): void {
@@ -78,7 +85,8 @@ export class AcePlotView extends HTMLBoxView {
   }
 
   _add_annotations(): void{
-    this._editor.session.setAnnotations(this.model.annotations)
+    if(this.model.annotations != this._editor.session.getAnnotations())
+      this._editor.session.setAnnotations(this.model.annotations)
   }
 
   after_layout(): void{
