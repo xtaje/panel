@@ -19,8 +19,6 @@ class VTKPlot(HTMLBox):
     __js_require__ = {"paths": {"vtk": vtk_cdn[:-3]},
                       "shim": {"vtk": {"exports": "vtk"}}}
 
-    __implementation__ = 'vtk.ts'
-
     append = Bool(default=False)
 
     data = String(help="""The serialized vtk.js data""")
