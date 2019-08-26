@@ -1,7 +1,7 @@
-import * as p from "core/properties"
-import {clone} from "core/util/object";
-import {HTMLBox, HTMLBoxView} from "models/layouts/html_box";
-import {div} from "core/dom";
+import * as p from "@bokehjs/core/properties"
+import {clone} from "@bokehjs/core/util/object";
+import {HTMLBox, HTMLBoxView} from "@bokehjs/models/layouts/html_box";
+import {div} from "@bokehjs/core/dom";
 
 export class VTKPlotView extends HTMLBoxView {
   model: VTKPlot
