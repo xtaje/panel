@@ -141,6 +141,11 @@ class GenericLink(Link):
         A dictionary mapping between source specification to target
         specification.""")
 
+    args = param.Dict(default={}, doc="""
+        A mapping of names to Python objects. These objects are made
+        available to the callback's code snippet as the values of
+        named parameters to the callback.""", allow_None=True)
+
     # Whether the link requires a target
     _requires_target = True
 

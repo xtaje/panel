@@ -538,7 +538,6 @@ class Viewable(Layoutable):
         return server
 
 
-
 class Reactive(Viewable):
     """
     Reactive is a Viewable object that also supports syncing between
@@ -604,6 +603,7 @@ class Reactive(Viewable):
             model.update(**msg)
 
     def _link_params(self):
+
         def param_change(*events):
             msgs = []
             for event in events:
@@ -776,6 +776,7 @@ class Reactive(Viewable):
                              'callbacks, neither was defined.')
 
         _updating = []
+
         def link(*events):
             for event in events:
                 if event.name in _updating: continue
@@ -789,6 +790,7 @@ class Reactive(Viewable):
                     raise
                 finally:
                     _updating.pop(_updating.index(event.name))
+
         params = list(callbacks) if callbacks else list(links)
         cb = self.param.watch(link, params)
         self._callbacks.append(cb)
@@ -824,7 +826,7 @@ class Reactive(Viewable):
             cb.start()
         return cb
 
-    def jslink(self, target, code=None, **links):
+    def jslink(self, target, code=None, args=None, **links):
         """
         Links properties on the source object to those on the target
         object in JS code. Supports two modes, either specify a
@@ -863,4 +865,4 @@ class Reactive(Viewable):
             mapping = code or links
             for k, v in list(mapping.items()):
                 mapping[k] = target._rename.get(v, v)
-        return GenericLink(self, target, properties=links, code=code)
+        return GenericLink(self, target, properties=links, code=code, args=args)
