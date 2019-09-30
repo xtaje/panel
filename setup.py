@@ -124,7 +124,8 @@ extras_require = {
         'sphinx <2',
         'selenium',
         'phantomjs',
-        'lxml'
+        'lxml',
+        'pyvista'
     ]
 }
 
